@@ -41,14 +41,24 @@ const Blog: React.FC<Props> = (props) => {
 
 export default Blog;
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.post.findMany({
-    where: { published: true },
-    include: {
-      author: {
-        select: { name: true },
+  try {
+    const feed = await prisma.post.findMany({
+      where: { published: true },
+      include: {
+        author: {
+          select: { name: true },
+        },
       },
-    },
-  });
+    });
+    return {
+      props: { feed },
+    };
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+    return {
+      props: { feed: [] }, // or some default value
+    };
+  }
   return {
     props: { feed },
     revalidate: 10,

@@ -15,7 +15,6 @@ model Post {
   published Boolean @default(false)
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  String?
-    image     String?  // New field added
 }
 
 model Account {
