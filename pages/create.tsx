@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import Router from "next/router";
+import { useSession } from "next-auth/react";
 
 const Draft: React.FC = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-
+  const session = useSession();
+  const email = session.data.user.email;
+  console.log(email);
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const body = { title, content };
+      const body = { title, content, email };
       await fetch("/api/post", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -20,7 +23,6 @@ const Draft: React.FC = () => {
       console.error(error);
     }
   };
-
   return (
     <Layout>
       <div>

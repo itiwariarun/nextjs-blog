@@ -5,13 +5,17 @@ import Layout from "../../components/Layout";
 import { PostProps } from "../../components/Post";
 import prisma from "../../lib/prisma";
 import { useSession } from "next-auth/react";
-async function publishPost(id: string): Promise<void> {
-  await fetch(`/api/publish/${id}`, {
-    method: "PUT",
-  });
-  await Router.push("/");
-}
+import { useRouter } from "next/router";
+
 const Post: React.FC<PostProps> = (props) => {
+  const router = useRouter();
+
+  async function publishPost(id: string): Promise<void> {
+    await fetch(`/api/publish/${id}`, {
+      method: "PUT",
+    });
+    await router.push("/");
+  }
   const { data: session, status } = useSession();
   if (status === "loading") {
     return <div>Authenticating ...</div>;
@@ -26,7 +30,7 @@ const Post: React.FC<PostProps> = (props) => {
     await fetch(`/api/post/${id}`, {
       method: "DELETE",
     });
-    Router.push("/");
+    router.push("/");
   }
   return (
     <Layout>
