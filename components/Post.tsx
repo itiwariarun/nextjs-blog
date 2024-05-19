@@ -5,6 +5,9 @@ import ReactMarkdown from "react-markdown";
 export type PostProps = {
   id: string;
   title: string;
+  summary: string;
+  url: string;
+  image: string;
   author: {
     name: string;
     email: string;
