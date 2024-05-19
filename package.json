@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "dev": "next dev",
+    "build": "npm run type-check && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -20,9 +22,9 @@
     "react-markdown": "^8.0.0"
   },
   "devDependencies": {
-    "@types/node": "^17.0.14",
-    "@types/react": "^17.0.38",
+    "@types/node": "^17.0.45",
+    "@types/react": "^17.0.80",
     "prisma": "^5.14.0",
-    "typescript": "^4.5.5"
+    "typescript": "^4.9.5"
   }
 }

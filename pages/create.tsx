@@ -45,7 +45,7 @@ const Create: React.FC = () => {
             value={content}
           />
           <input disabled={!content || !title} type="submit" value="Create" />
-          <a className="back" href="#" onClick={() => Router.push("/")}>
+          <a className="back" href="#" onClick={() => router.push("/")}>
             or Cancel
           </a>
         </form>
