@@ -28,10 +28,9 @@ const Blog: React.FC<Props> = (props) => {
                 <h2 className="text-2xl sm:text-3xl lg:text-5xl max-w-2xl mx-auto pb-8">
                   {post?.title}
                 </h2>
-                <ReactMarkdown
-                  className="pb-12 font-normal md:text-xl text-base max-w-2xl"
-                  children={post?.summary}
-                />
+                <ReactMarkdown className="pb-12 font-normal md:text-xl text-base max-w-2xl">
+                  {post?.summary}
+                </ReactMarkdown>
                 <img
                   className="min-w-full hover:scale-95 duration-200 ease-in aspect-video object-cover rounded-xl"
                   src={post?.url}
@@ -52,14 +51,11 @@ const Blog: React.FC<Props> = (props) => {
                   </small>
                 </div>
               </div>
-              <ReactMarkdown
-                className="pt-6 font-normal leading-5 sm:leading-6 lg:leading-8 text-xs sm:text-sm text-left md:px-20"
-                children={
-                  post.content.length > 230
-                    ? post.content.slice(0, 230) + "... &nbsp;&nbsp; Read more"
-                    : post.content
-                }
-              />
+              <ReactMarkdown className="pt-6 font-normal leading-5 sm:leading-6 lg:leading-8 text-xs sm:text-sm text-left md:px-20">
+                {post.content.length > 230
+                  ? post.content.slice(0, 230) + "... &nbsp;&nbsp; Read more"
+                  : post.content}
+              </ReactMarkdown>
             </div>
           ))}
           <div className="text-left md:px-20 flex flex-col">

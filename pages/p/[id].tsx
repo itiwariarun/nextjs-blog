@@ -37,10 +37,9 @@ const Post: React.FC<PostProps> = (props) => {
         <h2 className="text-2xl sm:text-3xl lg:text-5xl max-w-2xl mx-auto pb-4 sm:pb-8">
           {props.title}
         </h2>
-        <ReactMarkdown
-          className="pb-6 sm:pb-12 font-normal md:text-xl text-base max-w-2xl"
-          children={props?.summary}
-        />
+        <ReactMarkdown className="pb-6 sm:pb-12 font-normal md:text-xl text-base max-w-2xl">
+          {props?.summary}
+        </ReactMarkdown>
         <img
           className="min-w-full aspect-video object-cover rounded-xl"
           src={props?.url}
@@ -60,10 +59,9 @@ const Post: React.FC<PostProps> = (props) => {
           </small>
         </div>
       </div>
-      <ReactMarkdown
-        className="pt-4 sm:pt-6 font-normal leading-5 sm:leading-8 text-xs sm:text-sm text-left"
-        children={props.content}
-      />
+      <ReactMarkdown className="pt-4 sm:pt-6 font-normal leading-5 sm:leading-8 text-xs sm:text-sm text-left">
+        {props?.content}
+      </ReactMarkdown>
       <div className="mt-10 flex items-center justify-end ml-auto gap-4">
         {!props.published && userHasValidSession && postBelongsToUser && (
           <button
