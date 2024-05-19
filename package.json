@@ -4,10 +4,11 @@
   "description": "",
   "scripts": {
     "dev": "next dev",
-    "build": "npm run type-check && next build",
+    "build": "npm run prisma:generate && npm run type-check && next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "prisma:generate": "prisma generate"
   },
   "keywords": [],
   "author": "",
