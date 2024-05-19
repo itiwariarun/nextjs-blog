@@ -11,11 +11,15 @@ datasource db {
 model Post {
   id        String  @default(cuid()) @id
   title     String
+  summary   String?
+  image     String?
   content   String?
   published Boolean @default(false)
+  url       String?
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  String?
 }
+
 
 model Account {
   id                 String  @id @default(cuid())

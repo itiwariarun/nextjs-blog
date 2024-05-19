@@ -5,12 +5,15 @@ import prisma from "../../lib/prisma";
 // Required fields in body: title
 // Optional fields in body: content
 export default async function handle(req, res) {
-  const { title, content, email } = req.body;
+  const { title, content, email, url, summary, image } = req.body;
 
   const result = await prisma.post.create({
     data: {
       title: title,
       content: content,
+      url: url,
+      summary: summary,
+      image: image,
       author: { connect: { email: email } },
     },
   });

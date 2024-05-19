@@ -1,11 +1,14 @@
 import { getSession } from "next-auth/react";
 import App from "next/app";
 import { SessionProvider } from "next-auth/react";
+import "../styles/globals.css";
 
 const MyApp = ({ Component, pageProps }) => {
   return (
     <SessionProvider session={pageProps.session}>
-      <Component {...pageProps} />
+      <main className="font-inter">
+        <Component {...pageProps} />
+      </main>
     </SessionProvider>
   );
 };
