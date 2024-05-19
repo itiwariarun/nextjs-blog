@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
-import Router from "next/router";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
-const Draft: React.FC = () => {
+const Create: React.FC = () => {
+  const router = useRouter();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const session = useSession();
-  const email = session.data.user.email;
+  const email = session?.data?.user?.email;
   console.log(email);
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -18,7 +20,7 @@ const Draft: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      await Router.push("/drafts");
+      await router.push("/drafts");
     } catch (error) {
       console.error(error);
     }
@@ -80,4 +82,4 @@ const Draft: React.FC = () => {
   );
 };
 
-export default Draft;
+export default Create;
