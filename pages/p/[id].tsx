@@ -9,28 +9,39 @@ import { useRouter } from "next/router";
 
 const Post: React.FC<PostProps> = (props) => {
   const router = useRouter();
-  async function publishPost(id: string): Promise<void> {
-    await fetch(`/api/publish/${id}`, {
-      method: "PUT",
-    });
-    await router.push("/");
-  }
   const { data: session, status } = useSession();
+
   if (status === "loading") {
     return <div>Authenticating ...</div>;
   }
+
   const userHasValidSession = Boolean(session);
-  const postBelongsToUser = session?.user?.email === props.author?.email;
-  let title = props.title;
-  if (!props.published) {
-    title = `${title} (Draft)`;
-  }
-  async function deletePost(id: string): Promise<void> {
-    await fetch(`/api/post/${id}`, {
-      method: "DELETE",
-    });
-    router.push("/");
-  }
+  const postBelongsToUser = session?.user?.email === props?.author?.email;
+  const draftTitle = props?.published ? "" : " (Draft)";
+  const title = props?.title + draftTitle;
+
+  const publishPost = async (id) => {
+    try {
+      await fetch(`/api/publish/${id}`, {
+        method: "PUT",
+      });
+      router.push("/");
+    } catch (error) {
+      console.error("Error publishing post:", error);
+    }
+  };
+
+  const deletePost = async (id) => {
+    try {
+      await fetch(`/api/post/${id}`, {
+        method: "DELETE",
+      });
+      router.push("/");
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
+
   return (
     <Layout>
       <div className="flex flex-col sm:text-center sm:items-center">
