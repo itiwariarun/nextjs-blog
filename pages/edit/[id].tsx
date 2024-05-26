@@ -1,17 +1,10 @@
-import { useState, useReducer, SyntheticEvent, FC } from "react";
-import Layout from "../components/Layout";
-import { useSession } from "next-auth/react";
+// components/EditPost.js
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-const initialState = {
-  title: "",
-  url: "",
-  summary: "",
-  content: "",
-};
+import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useReducer } from "react";
+import Layout from "./../../components/Layout";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -27,43 +20,53 @@ const reducer = (state, action) => {
       return state;
   }
 };
-const Create: FC = () => {
-  const router = useRouter();
-
-  const [state, dispatch] = useReducer(reducer, initialState);
+const EditPost = (props) => {
+  const [state, dispatch] = useReducer(reducer, {
+    title: props.title,
+    url: props.url,
+    summary: props.summary,
+    content: props.content,
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     dispatch({ type: `SET_${name.toUpperCase()}`, payload: value });
   };
-  const { title, url, summary, content } = state;
+  const router = useRouter();
   const session = useSession();
   const email = session?.data?.user?.email;
   const image = session?.data?.user?.image;
+  const { title, url, summary, content } = state;
 
-  const submitData = async (e: SyntheticEvent) => {
+  const editPost = async (e: SyntheticEvent) => {
     e.preventDefault();
+    router.back();
     try {
       const body = { title, content, email, url, summary, image };
-      await fetch("/api/post", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      await fetch(`/api/post/${props.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(body),
       });
-      await router.push("/drafts");
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <Layout>
       <div className="px-6">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Create New Post
+        <div className="flex flex-col max-w-2xl gap-5 mx-auto text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Edit Post
+          </h1>
+          <h2 className="max-w-2xl pb-4 mx-auto text-xl sm:text-3xl lg:text-2xl sm:pb-8">
+            {props.title}
           </h2>
         </div>
-        <form onSubmit={submitData} className="max-w-xl mx-auto mt-16 sm:mt-20">
+        <form onSubmit={editPost} className="max-w-xl mx-auto mt-16 sm:mt-20">
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
             <div>
               <label
@@ -152,14 +155,14 @@ const Create: FC = () => {
           <div className="flex flex-col gap-4 mt-10">
             <button
               type="submit"
-              disabled={!content || !title}
-              className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 disabled:cursor-not-allowed text-center text-sm border border-indigo-600 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              disabled={!state.content || !state.title}
+              className="block w-full rounded-md bg-indigo-600 disabled:cursor-not-allowed px-3.5 py-2.5 text-center text-sm border border-indigo-600 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Create Post
+              Update Post
             </button>
             <button
               type="submit"
-              onClick={() => router.push("/")}
+              onClick={() => router.back()}
               className="block w-full rounded-md bg-indigo-50/40 hover:bg-indigo-50 border text-indigo-600 border-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold hover:text-indigo-500 shadow-sm hover:border-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Cancel
@@ -170,4 +173,20 @@ const Create: FC = () => {
     </Layout>
   );
 };
-export default Create;
+
+export default EditPost;
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: String(params?.id),
+    },
+    include: {
+      author: {
+        select: { name: true, email: true },
+      },
+    },
+  });
+  return {
+    props: post,
+  };
+};

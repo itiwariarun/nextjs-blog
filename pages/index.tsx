@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, FC } from "react";
 import { GetStaticProps } from "next";
 import Layout from "../components/Layout";
 import Post, { PostProps } from "../components/Post";
@@ -10,36 +10,40 @@ type Props = {
   feed: PostProps[];
 };
 
-const Blog: React.FC<Props> = (props) => {
+const Blog: FC<Props> = (props) => {
   const router = useRouter();
+  const [counts, setCounts] = useState(10);
+  const viewMore = () => {
+    props.feed.length > counts ? setCounts((prevCount) => prevCount + 10) : "";
+  };
   return (
     <Layout>
       <div className="page">
-        <h1 className="text-center text-4xl sm:text-5xl lg:text-8xl font-semibold pb-10 md:pb-20">
+        <h1 className="pb-10 text-4xl font-semibold text-center sm:text-5xl lg:text-8xl md:pb-20">
           Public Feed
         </h1>
         <main>
           {props.feed.slice(0, 1).map((post) => (
             <div key={post?.id} className="post">
               <div
-                className="flex flex-col sm:text-center items-center"
+                className="flex flex-col items-center sm:text-center"
                 onClick={() => router.push("/p/[id]", `/p/${post?.id}`)}
               >
-                <h2 className="text-2xl sm:text-3xl lg:text-5xl max-w-2xl mx-auto pb-8">
+                <h2 className="max-w-2xl pb-8 mx-auto text-2xl sm:text-3xl lg:text-5xl">
                   {post?.title}
                 </h2>
-                <ReactMarkdown className="pb-12 font-normal md:text-xl text-base max-w-2xl">
+                <ReactMarkdown className="max-w-2xl pb-12 text-base font-normal md:text-xl">
                   {post?.summary}
                 </ReactMarkdown>
                 <img
-                  className="min-w-full hover:scale-95 duration-200 ease-in aspect-video object-cover rounded-xl"
+                  className="object-cover min-w-full duration-200 ease-in hover:scale-95 aspect-video rounded-xl"
                   src={post?.url}
                   alt={post?.title}
                 />
 
                 <div className="flex items-center py-2 gap-2.5">
                   <img
-                    className="size-6 object-cover rounded-full"
+                    className="object-cover rounded-full size-6"
                     src={
                       post?.image ||
                       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0V_aHE12tdUfBMu2ZvPg-eCfzXDh8B8Zx3xzI2NukeQ&s"
@@ -51,25 +55,35 @@ const Blog: React.FC<Props> = (props) => {
                   </small>
                 </div>
               </div>
-              <ReactMarkdown className="pt-6 font-normal leading-5 sm:leading-6 lg:leading-8 text-xs sm:text-sm text-left md:px-20">
+              <ReactMarkdown className="pt-6 text-xs font-normal leading-5 text-left sm:leading-6 lg:leading-8 sm:text-sm md:px-20">
                 {post.content.length > 230
                   ? post.content.slice(0, 230) + "... &nbsp;&nbsp; Read more"
                   : post.content}
               </ReactMarkdown>
             </div>
           ))}
-          <div className="text-left md:px-20 flex flex-col">
-            <h1 className="text-xs font-medium pt-20 pb-10">
+          <div className="flex flex-col text-left md:px-20">
+            <h1 className="pt-20 pb-10 text-xs font-medium">
               Recent Publications
             </h1>
-            <div className="flex flex-col pb-16 gap-12">
-              {props.feed.slice(1, props.feed.length).map((post) => (
+            <div className="flex flex-col gap-12 pb-16">
+              {props.feed.slice(1, counts).map((post) => (
                 <div key={post?.id} className="post">
                   <Post post={post} />
                 </div>
               ))}
             </div>
           </div>
+          {props.feed.length > 10 && (
+            <div className="max-w-xs mx-auto my-5">
+              <button
+                className="bg-gray-100 border p-2.5 rounded-lg text-xs md:text-sm font-medium text-gray-700 min-w-full border-gray-100"
+                onClick={viewMore}
+              >
+                View More
+              </button>
+            </div>
+          )}
         </main>
       </div>
     </Layout>

@@ -34,20 +34,20 @@ const Post: React.FC<PostProps> = (props) => {
   return (
     <Layout>
       <div className="flex flex-col sm:text-center sm:items-center">
-        <h2 className="text-2xl sm:text-3xl lg:text-5xl max-w-2xl mx-auto pb-4 sm:pb-8">
+        <h2 className="max-w-2xl pb-4 mx-auto text-2xl sm:text-3xl lg:text-5xl sm:pb-8">
           {props.title}
         </h2>
-        <ReactMarkdown className="pb-6 sm:pb-12 font-normal md:text-xl text-base max-w-2xl">
+        <ReactMarkdown className="max-w-2xl pb-6 text-base font-normal sm:pb-12 md:text-xl">
           {props?.summary}
         </ReactMarkdown>
         <img
-          className="min-w-full aspect-video object-cover rounded-xl"
+          className="object-cover min-w-full aspect-video rounded-xl"
           src={props?.url}
           alt={props?.title}
         />
         <div className="flex items-center py-2.5 gap-2.5">
           <img
-            className="size-6 object-cover rounded-full"
+            className="object-cover rounded-full size-6"
             src={
               props?.image ||
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0V_aHE12tdUfBMu2ZvPg-eCfzXDh8B8Zx3xzI2NukeQ&s"
@@ -59,15 +59,19 @@ const Post: React.FC<PostProps> = (props) => {
           </small>
         </div>
       </div>
-      <ReactMarkdown className="pt-4 sm:pt-6 font-normal leading-5 sm:leading-8 text-xs sm:text-sm text-left">
+      <ReactMarkdown className="pt-4 text-xs font-normal leading-5 text-left sm:pt-6 sm:leading-8 sm:text-sm">
         {props?.content}
       </ReactMarkdown>
-      <div className="mt-10 flex items-center justify-end ml-auto gap-4">
+      <div
+        className={`flex items-center gap-4 mt-10 ml-auto ${
+          props.published ? "flex-row-reverse" : "justify-end"
+        }`}
+      >
         {!props.published && userHasValidSession && postBelongsToUser && (
           <button
             type="submit"
             onClick={() => publishPost(props.id)}
-            className="block w-full rounded-md bg-indigo-600 max-w-40 px-3.5 py-2.5 text-center text-sm border border-indigo-600 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="block w-full rounded-md bg-indigo-600 max-w-40 px-3.5 py-2.5 text-center text-sm border border-indigo-600 font-semibold text-indigo-50 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Publish
           </button>
@@ -79,6 +83,19 @@ const Post: React.FC<PostProps> = (props) => {
             className="block w-full rounded-md bg-indigo-50/40 max-w-40 hover:bg-indigo-50 border text-indigo-600 border-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold hover:text-indigo-500 shadow-sm hover:border-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Delete
+          </button>
+        )}
+        {userHasValidSession && postBelongsToUser && (
+          <button
+            type="submit"
+            onClick={() => router.push(`/edit/${props.id}`)}
+            className={`block w-full rounded-md max-w-40 hover:bg-indigo-50  text-indigo-600  px-3.5 py-2.5 text-center text-sm font-semibold ${
+              props.published
+                ? "border-indigo-600  border bg-indigo-600 text-indigo-50"
+                : " hover:bg-indigo-50/40  text-indigo-600"
+            } hover:text-indigo-500 shadow-sm hover:border-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+          >
+            Edit
           </button>
         )}
       </div>

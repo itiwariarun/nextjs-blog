@@ -11,8 +11,8 @@ const Header: React.FC = () => {
   const { data: session, status } = useSession();
 
   return (
-    <nav className="flex justify-between items-center pt-12">
-      <div className="flex font-medium text-base md:text-xl text-gray-900 gap-x-2.5 md:gap-x-5 items-center">
+    <nav className="flex items-center justify-between pt-12">
+      <div className="flex font-medium text-lg md:text-xl text-gray-900 gap-x-2.5 md:gap-x-5 items-center">
         <Link href="/">
           <a className="bold" data-active={isActive("/")}>
             Feed
@@ -38,7 +38,7 @@ const Header: React.FC = () => {
         </div>
       ) : (
         <div className="right">
-          <Link href="/api/auth/signin">
+          <Link href="/auth/signin">
             <a data-active={isActive("/signup")}>Log in</a>
           </Link>
         </div>

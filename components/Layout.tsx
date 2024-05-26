@@ -1,12 +1,13 @@
 import React, { ReactNode } from "react";
 import Header from "./Header";
+import Footer from "./Footer";
 
 type Props = {
   children: ReactNode;
 };
 
 const Layout: React.FC<Props> = (props) => (
-  <div className="container antialiased scroll-smooth px-4 max-w-4xl bg-white isolate mx-auto">
+  <div className="container grid content-between max-w-4xl min-h-screen px-4 mx-auto antialiased bg-white scroll-smooth isolate">
     <div
       className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
       aria-hidden="true"
@@ -20,7 +21,8 @@ const Layout: React.FC<Props> = (props) => (
       />
     </div>
     <Header />
-    <div className="pt-20 sm:pt-40 pb-10">{props.children}</div>
+    <div className="pt-20 pb-10 sm:pt-40">{props.children}</div>
+    <Footer />
   </div>
 );
 
