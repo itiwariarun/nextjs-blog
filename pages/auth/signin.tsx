@@ -31,20 +31,22 @@ export default function SignIn({ providers }) {
             Connect with available account
           </p>
           <ul className="mt-6 mb-4 space-y-3">
-            {Object.values(providers).map((provider) => (
-              <li key={provider.name}>
-                <button
-                  onClick={() => signIn(provider.id)}
-                  className="flex items-center w-full p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
-                >
-                  <GithubIcon />
-                  <span className="flex-1 ms-3 whitespace-nowrap">
-                    {" "}
-                    Sign in with {provider.name}
-                  </span>
-                </button>
-              </li>
-            ))}
+            {Object.values(providers).map(
+              (provider: { name: string; id: string }) => (
+                <li key={provider.name}>
+                  <button
+                    onClick={() => signIn(provider.id)}
+                    className="flex items-center w-full p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
+                  >
+                    <GithubIcon />
+                    <span className="flex-1 ms-3 whitespace-nowrap">
+                      {" "}
+                      Sign in with {provider.name}
+                    </span>
+                  </button>
+                </li>
+              )
+            )}
           </ul>
         </div>
       )}
