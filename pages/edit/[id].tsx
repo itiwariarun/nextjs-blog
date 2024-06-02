@@ -62,7 +62,7 @@ const EditPost = (props) => {
     <Layout>
       <div className="px-6">
         <div className="flex flex-col max-w-2xl gap-5 mx-auto text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Edit Post
           </h1>
           <h2 className="max-w-2xl pb-4 mx-auto text-xl sm:text-3xl lg:text-2xl sm:pb-8">
@@ -74,7 +74,7 @@ const EditPost = (props) => {
             <div>
               <label
                 htmlFor="title"
-                className="block text-sm font-semibold leading-6 text-gray-900"
+                className="block text-sm font-semibold leading-6 text-gray-900 dark:text-gray-300"
               >
                 Title
               </label>
@@ -95,7 +95,7 @@ const EditPost = (props) => {
             <div>
               <label
                 htmlFor="url"
-                className="block text-sm font-semibold leading-6 text-gray-900"
+                className="block text-sm font-semibold leading-6 text-gray-900 dark:text-gray-300"
               >
                 Image Url
               </label>
@@ -115,7 +115,7 @@ const EditPost = (props) => {
             <div className="sm:col-span-2">
               <label
                 htmlFor="summary"
-                className="block text-sm font-semibold leading-6 text-gray-900"
+                className="block text-sm font-semibold leading-6 text-gray-900 dark:text-gray-300"
               >
                 Summary
               </label>
@@ -136,7 +136,7 @@ const EditPost = (props) => {
             <div className="sm:col-span-2">
               <label
                 htmlFor="content"
-                className="block text-sm font-semibold leading-6 text-gray-900"
+                className="block text-sm font-semibold leading-6 text-gray-900 dark:text-gray-300"
               >
                 Content
               </label>
@@ -166,7 +166,7 @@ const EditPost = (props) => {
             <button
               type="submit"
               onClick={() => router.back()}
-              className="block w-full rounded-md bg-indigo-50/40 hover:bg-indigo-50 border text-indigo-600 border-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold hover:text-indigo-500 shadow-sm hover:border-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="block w-full rounded-md bg-indigo-50 hover:bg-indigo-50 border text-indigo-600 border-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold hover:text-indigo-500 shadow-sm hover:border-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Cancel
             </button>

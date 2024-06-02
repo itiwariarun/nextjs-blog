@@ -8,6 +8,7 @@ module.exports = {
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class", // or 'media' if you prefer using the prefers-color-scheme media query
   theme: {
     extend: {
       fontFamily: {

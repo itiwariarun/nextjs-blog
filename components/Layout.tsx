@@ -7,9 +7,9 @@ type Props = {
 };
 
 const Layout: React.FC<Props> = (props) => (
-  <div className="container grid content-between max-w-4xl min-h-screen px-4 mx-auto antialiased bg-white scroll-smooth isolate">
+  <div className="container grid content-between max-w-4xl min-h-screen px-4 mx-auto antialiased scroll-smooth isolate">
     <div
-      className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
+      className="absolute  inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
       aria-hidden="true"
     >
       <div

@@ -77,7 +77,7 @@ const Blog: FC<Props> = (props) => {
           {props.feed.length > 10 && (
             <div className="max-w-xs mx-auto my-5">
               <button
-                className="bg-gray-100 border p-2.5 rounded-lg text-xs md:text-sm font-medium text-gray-700 min-w-full border-gray-100"
+                className="bg-gray-100 dark:bg-gray-800 border p-2.5 rounded-lg text-xs md:text-sm font-medium text-gray-700 dark:text-gray-400 min-w-full border-gray-100 dark:border-gray-800"
                 onClick={viewMore}
               >
                 View More

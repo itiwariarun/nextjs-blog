@@ -1,9 +1,10 @@
-import React from "react";
+import { useEffect, FC } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
+import ThemeSwitcher from "./ThemeSwitcher";
 
-const Header: React.FC = () => {
+const Header: FC = () => {
   const router = useRouter();
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
@@ -12,7 +13,7 @@ const Header: React.FC = () => {
 
   return (
     <nav className="flex items-center justify-between pt-12">
-      <div className="flex font-medium text-lg md:text-xl text-gray-900 gap-x-2.5 md:gap-x-5 items-center">
+      <div className="flex font-medium text-lg md:text-xl text-gray-900 dark:text-gray-300 gap-x-2.5 md:gap-x-5 items-center">
         <Link href="/">
           <a className="bold" data-active={isActive("/")}>
             Feed
@@ -25,7 +26,7 @@ const Header: React.FC = () => {
         )}
       </div>
       {session ? (
-        <div className="flex gap-x-2.5 md:gap-x-5 text-xs sm:text-sm font-medium text-gray-700 items-center">
+        <div className="flex gap-x-2.5 md:gap-x-5 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-400 items-center">
           <p>{session.user.name}</p>
           <Link href="/create">
             <button>
@@ -35,12 +36,14 @@ const Header: React.FC = () => {
           <button onClick={() => signOut()}>
             <a>Log out</a>
           </button>
+          <ThemeSwitcher />
         </div>
       ) : (
-        <div className="right">
+        <div className="flex right items-center whitespace-nowrap gap-x-2.5">
           <Link href="/auth/signin">
             <a data-active={isActive("/signup")}>Log in</a>
           </Link>
+          <ThemeSwitcher />
         </div>
       )}
     </nav>
