@@ -18,7 +18,7 @@ export default function ThemeSwitcher() {
   }, [isDarkMode]);
   return (
     <div className="container">
-      <label className="toggle" for="switch">
+      <label className="toggle" htmlFor="switch">
         <input
           id="switch"
           onChange={toggle}
