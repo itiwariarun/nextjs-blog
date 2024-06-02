@@ -10,7 +10,7 @@ const Header: FC = () => {
     router.pathname === pathname;
 
   const { data, status } = useSession();
-  const [session, setSession] = useState();
+  const [session, setSession] = useState<any>();
   useEffect(() => {
     setSession(data);
   }, [data]);
@@ -30,7 +30,7 @@ const Header: FC = () => {
       </div>
       {session ? (
         <div className="flex gap-x-2.5 md:gap-x-5 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-400 items-center">
-          <p>{session.user.name}</p>
+          <p>{session?.user?.name}</p>
           <Link href="/create">
             <button>
               <a>New post</a>
