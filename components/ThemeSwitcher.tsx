@@ -22,7 +22,7 @@ export default function ThemeSwitcher() {
         <input
           id="switch"
           onChange={toggle}
-          defaultValue={isDarkMode}
+          defaultValue={isDarkMode as any}
           className="input"
           type="checkbox"
         />
