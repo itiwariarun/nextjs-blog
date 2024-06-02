@@ -9,8 +9,11 @@ const Header: FC = () => {
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
 
-  const { data: session, status } = useSession();
-
+  const { data, status } = useSession();
+  const [session, setSession] = useState();
+  useEffect(() => {
+    setSession(data);
+  }, [data]);
   return (
     <nav className="flex items-center justify-between pt-12">
       <div className="flex font-medium text-lg md:text-xl text-gray-900 dark:text-gray-300 gap-x-2.5 md:gap-x-5 items-center">
