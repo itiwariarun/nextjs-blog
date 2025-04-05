@@ -15,7 +15,7 @@ export default async function handle(req, res) {
 
     try {
       const post = await prisma.post.update({
-        where: { id: postId }, // Ensure id is a number
+        where: { id: postId, inPortfolio: false }, // Ensure id is a number
         data: {
           title: title,
           content: content,

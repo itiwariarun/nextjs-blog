@@ -93,7 +93,7 @@ const Blog: FC<Props> = (props) => {
 export default Blog;
 export const getStaticProps: GetStaticProps = async () => {
   const feed = await prisma.post?.findMany({
-    where: { published: true },
+    where: { published: true, inPortfolio: false },
     include: {
       author: {
         select: { name: true },
@@ -102,7 +102,7 @@ export const getStaticProps: GetStaticProps = async () => {
   });
   try {
     const feed = await prisma.post?.findMany({
-      where: { published: true },
+      where: { published: true, inPortfolio: false },
       include: {
         author: {
           select: { name: true },
