@@ -14,7 +14,6 @@ export default async function handle(req, res) {
       url: url,
       summary: summary,
       image: image,
-
       author: { connect: { email: email } },
     },
   });
