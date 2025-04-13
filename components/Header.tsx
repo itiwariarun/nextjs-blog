@@ -20,13 +20,13 @@ const Header: FC = () => {
         <Link className="bold" data-active={isActive("/")} href="/">
           Feed
         </Link>
-        {session && (
+        {!!session?.accessToken && (
           <Link data-active={isActive("/drafts")} href="/drafts">
             My drafts
           </Link>
         )}
       </div>
-      {session ? (
+      {!!session?.accessToken ? (
         <div className="flex gap-x-2.5 md:gap-x-5 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-400 items-center">
           <p>{session?.user?.name}</p>
           <Link href="/create">

@@ -14,7 +14,7 @@ export default function SignIn({ providers }) {
   };
   return (
     <Layout>
-      {session ? (
+      {!!session?.accessToken ? (
         <div className="flex flex-col min-h-[50vh] gap-5 text-xl font-medium text-gray-700 dark:text-gray-400">
           <p>{session.user.name}</p>
           <Link href="/create">
