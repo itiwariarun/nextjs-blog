@@ -22,7 +22,7 @@ const options = {
     // newUser: '/auth/new-user'
   },
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account, profile }) {
       if (account) {
         token.accessToken = account.access_token;
         token.id = profile.id;
