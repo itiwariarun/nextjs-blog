@@ -2,7 +2,7 @@ import { useState, useReducer, SyntheticEvent, FC } from "react";
 import Layout from "@components/Layout";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { PlaceHolderTextArea } from "@utils/constants";
+import { CreatePattern } from "@components/Pattern";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -140,12 +140,13 @@ const Create: FC = () => {
                   id="content"
                   cols={50}
                   onChange={handleChange}
-                  placeholder={PlaceHolderTextArea}
+                  placeholder="Content"
                   value={state.content}
                   rows={8}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 dark:text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   defaultValue={""}
                 />
+                <CreatePattern />
               </div>
             </div>
           </div>
