@@ -1,8 +1,8 @@
 import { useState, FC } from "react";
 import { GetStaticProps } from "next";
-import Layout from "../components/Layout";
-import Post, { PostProps } from "../components/Post";
-import prisma from "../lib/prisma";
+import Layout from "@components/Layout";
+import Post, { PostProps } from "@components/Post";
+import prisma from "@lib/prisma";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -43,7 +43,7 @@ const Blog: FC<Props> = (props) => {
                     layout="fill"
                     objectFit="cover"
                     priority
-                                                  quality={100}
+                    quality={100}
                   />
                 </div>
                 <div className="flex items-center py-2 gap-2.5">

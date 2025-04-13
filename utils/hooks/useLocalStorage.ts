@@ -4,8 +4,8 @@ import type { Dispatch, SetStateAction } from "react";
 
 import { useEventCallback } from "./useEventCallback";
 import { useEventListener } from "./useEventListener";
-import { IS_SERVER } from "./../constants";
-import { UseLocalStorageOptions } from "./../types";
+import { IS_SERVER } from "@utils/constants";
+import { UseLocalStorageOptions } from "@utils/types";
 declare global {
   interface WindowEventMap {
     "local-storage": CustomEvent;

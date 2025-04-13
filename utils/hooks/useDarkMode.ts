@@ -1,8 +1,8 @@
 import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 import { useLocalStorage } from "./useLocalStorage";
 import { useMediaQuery } from "./useMediaQuery";
-import { LOCAL_STORAGE_KEY, COLOR_SCHEME_QUERY } from "./../constants";
-import { DarkModeOptions, DarkModeReturn } from "./../types";
+import { LOCAL_STORAGE_KEY, COLOR_SCHEME_QUERY } from "@utils/constants";
+import { DarkModeOptions, DarkModeReturn } from "@utils/types";
 
 export function useDarkMode(options: DarkModeOptions = {}): DarkModeReturn {
   const {

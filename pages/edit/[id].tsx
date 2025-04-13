@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { useReducer } from "react";
-import Layout from "./../../components/Layout";
-import prisma from "./../../lib/prisma";
+import Layout from "@components/Layout";
+import prisma from "@lib/prisma";
 import { GetServerSideProps } from "next";
 import { SyntheticEvent } from "react";
 

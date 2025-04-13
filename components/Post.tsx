@@ -16,7 +16,20 @@ export type PostProps = {
   content: string;
   published: boolean;
 };
-
+export interface SectionTypes {
+  heading: string;
+  content: string;
+  description: string;
+  steps: {
+    description: string;
+    command: string;
+    step: number;
+  }[];
+  code: { language: string; content: string };
+  example: {
+    component: { filename: string; code: string; language: string };
+  };
+}
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
   const authorName = post.author ? post.author.name : "Unknown author";
   return (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
-import { IS_SERVER } from "./../constants";
-import { UseMediaQueryOptions } from "./../types";
+import { IS_SERVER } from "@utils/constants";
+import { UseMediaQueryOptions } from "@utils/types";
 
 export function useMediaQuery(
   query: string,
