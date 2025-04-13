@@ -9,15 +9,12 @@ import { useRouter } from "next/router";
 export default function SignIn({ providers }) {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const SignInFunc = (id) => {
-    signIn(id, { callbackUrl: "/drafts" }).then((res) => {
-      if (res.error) {
-        console.error("Error signing in:", res.error);
-      } else {
-        router.push("/drafts");
-        router.reload();
-      }
-    });
+  const SignInFunc = async (id) => {
+    const res = await signIn(id, { callbackUrl: "/drafts" });
+    if (!!res) {
+      router.push("/drafts");
+      router.reload();
+    }
   };
   return (
     <Layout>
