@@ -3,9 +3,9 @@ import { GetStaticProps } from "next";
 import Layout from "@components/Layout";
 import Post, { PostProps } from "@components/Post";
 import prisma from "@lib/prisma";
-import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import HtmlRenderer from "@components/HtmlRenderer";
 type Props = {
   feed: PostProps[];
 };
@@ -32,9 +32,9 @@ const Blog: FC<Props> = (props) => {
                 <h2 className="max-w-2xl pb-8 mx-auto text-2xl sm:text-3xl lg:text-5xl">
                   {post?.title}
                 </h2>
-                <ReactMarkdown className="max-w-2xl pb-12 text-base font-normal md:text-xl">
-                  {post?.summary}
-                </ReactMarkdown>
+                <p className="max-w-2xl pb-12 text-base font-normal md:text-xl">
+                  <HtmlRenderer htmlContent={post?.summary} />
+                </p>
                 <div className="relative w-full h-full rounded-xl aspect-video">
                   <Image
                     className="object-cover min-w-full duration-200 ease-in hover:scale-95 aspect-video rounded-xl"
@@ -67,12 +67,16 @@ const Blog: FC<Props> = (props) => {
                   </small>
                 </div>
               </div>
-              <ReactMarkdown className="pt-6 text-xs font-normal leading-5 text-left sm:leading-6 lg:leading-8 sm:text-sm md:px-20">
-                {JSON.parse(post?.content)?.summary.length > 230
-                  ? JSON.parse(post?.content)?.summary.slice(0, 230) +
-                    "... &nbsp;&nbsp; Read more"
-                  : JSON.parse(post?.content)?.summary}
-              </ReactMarkdown>
+              <p className="pt-6 text-xs font-normal leading-5 text-left sm:leading-6 lg:leading-8 sm:text-sm md:px-20">
+                <HtmlRenderer
+                  htmlContent={
+                    JSON.parse(post?.content)?.summary.length > 230
+                      ? JSON.parse(post?.content)?.summary.slice(0, 230) +
+                        "... &nbsp;&nbsp; Read more"
+                      : JSON.parse(post?.content)?.summary
+                  }
+                />
+              </p>
             </div>
           ))}
           <div className="flex flex-col text-left md:px-20">
