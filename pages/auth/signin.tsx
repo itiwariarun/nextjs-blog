@@ -8,16 +8,16 @@ import { GithubIcon } from "@components/Icons";
 export default function SignIn({ providers }) {
   const { data: session, status } = useSession();
   const router = useRouter();
-const SignIn=()=>{
-  signIn(provider.id, { callbackUrl: "/drafts" }).then((res) => {
-    if (res.error) {
-      console.error("Error signing in:", res.error);
-    } else {
-      router.push("/drafts");
-      router.reload()
-    }
-  }
-}
+  const SignInFunc = () => {
+    signIn(provider.id, { callbackUrl: "/drafts" }).then((res) => {
+      if (res.error) {
+        console.error("Error signing in:", res.error);
+      } else {
+        router.push("/drafts");
+        router.reload();
+      }
+    });
+  };
   return (
     <Layout>
       {session ? (
@@ -43,9 +43,7 @@ const SignIn=()=>{
               (provider: { name: string; id: string }) => (
                 <li key={provider.name}>
                   <button
-                    onClick={() =>
-
-                    }
+                    onClick={SignInFunc}
                     className="flex items-center w-full p-3 text-base font-bold text-gray-900 rounded-lg dark:text-gray-300 bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500"
                   >
                     <GithubIcon />
