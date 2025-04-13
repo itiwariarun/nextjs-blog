@@ -11,8 +11,6 @@ export default function SignIn({ providers }) {
   const router = useRouter();
   const SignInFunc = (id) => {
     signIn(id, { callbackUrl: "/drafts" });
-    router.push("/drafts");
-    router.reload();
   };
   return (
     <Layout>
