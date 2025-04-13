@@ -28,7 +28,7 @@ export function CreatePattern() {
           <ModalContent>
             <h2>Create New Blog By Following This Pattern</h2>
             <CodeBlock
-              language={JSON}
+              language=".json"
               highlightLines={[9, 13, 14, 18]}
               code={PlaceHolderTextArea}
             />
