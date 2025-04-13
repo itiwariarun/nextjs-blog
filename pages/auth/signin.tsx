@@ -7,7 +7,17 @@ import { signOut } from "next-auth/react";
 import { GithubIcon } from "@components/Icons";
 export default function SignIn({ providers }) {
   const { data: session, status } = useSession();
-
+  const router = useRouter();
+const SignIn=()=>{
+  signIn(provider.id, { callbackUrl: "/drafts" }).then((res) => {
+    if (res.error) {
+      console.error("Error signing in:", res.error);
+    } else {
+      router.push("/drafts");
+      router.reload()
+    }
+  }
+}
   return (
     <Layout>
       {session ? (
@@ -34,7 +44,7 @@ export default function SignIn({ providers }) {
                 <li key={provider.name}>
                   <button
                     onClick={() =>
-                      signIn(provider.id, { callbackUrl: "/drafts" })
+
                     }
                     className="flex items-center w-full p-3 text-base font-bold text-gray-900 rounded-lg dark:text-gray-300 bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500"
                   >
