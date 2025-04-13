@@ -25,6 +25,7 @@ const options = {
     async jwt({ token, user, account }) {
       if (account) {
         token.accessToken = account.access_token;
+        token.id = profile.id;
       }
       if (user) {
         token.email = user.email;
@@ -34,6 +35,7 @@ const options = {
     async session({ session, token }) {
       if (token) {
         session.accessToken = token.accessToken;
+        session.user.id = token.id;
         session.user.email = token.email;
       }
       return session;
