@@ -8,7 +8,7 @@ export default function Footer() {
     router.pathname === pathname;
 
   return (
-    <>
+    <div className="max-w-4xl w-full mx-auto">
       <div className="flex items-center justify-between gap-5 pt-12">
         <div className="flex flex-col gap-y-5">
           <Link href="/">
@@ -57,6 +57,6 @@ export default function Footer() {
           <p>Terms and Conditions</p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

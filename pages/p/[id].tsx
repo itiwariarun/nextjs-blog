@@ -6,7 +6,9 @@ import { PostProps } from "../../components/Post";
 import prisma from "../../lib/prisma";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-
+import { CodeBlock } from "./../../components/CodeSection";
+import HtmlRenderer from "./../../components/HtmlRenderer";
+import Image from "next/image";
 const Post: React.FC<PostProps> = (props) => {
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -41,38 +43,93 @@ const Post: React.FC<PostProps> = (props) => {
       console.error("Error deleting post:", error);
     }
   };
+  const data = JSON?.parse(`${props?.content}`);
 
   return (
     <Layout>
-      <div className="flex flex-col sm:text-center sm:items-center">
-        <h2 className="max-w-2xl pb-4 mx-auto text-2xl sm:text-3xl lg:text-5xl sm:pb-8">
-          {props.title}
-        </h2>
-        <ReactMarkdown className="max-w-2xl pb-6 text-base font-normal sm:pb-12 md:text-xl">
-          {props?.summary}
-        </ReactMarkdown>
-        <img
-          className="object-cover min-w-full aspect-video rounded-xl"
-          src={props?.url}
-          alt={props?.title}
-        />
-        <div className="flex items-center py-2.5 gap-2.5">
-          <img
-            className="object-cover rounded-full size-6"
-            src={
-              props?.image ||
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0V_aHE12tdUfBMu2ZvPg-eCfzXDh8B8Zx3xzI2NukeQ&s"
-            }
-            alt={props?.author ? props?.author.name : "Unknown author"}
-          />
-          <small className="py-2">
-            By {props?.author ? props?.author.name : "Unknown author"}
-          </small>
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col sm:text-center sm:items-center">
+          <h1 className="max-w-3xl pb-4 mx-auto text-2xl sm:text-3xl lg:text-5xl sm:pb-8">
+            {title}
+          </h1>
+          {props?.url && (
+            <Image
+              className="object-cover min-w-full aspect-video rounded-xl"
+              src={props.url}
+              alt={props.title}
+              width={600}
+              height={400}
+            />
+          )}
+        </div>
+
+        <div className="flex flex-col gap-6 py-10">
+          {data?.sections?.map((section: SectionTypes, index: number) => (
+            <section className="flex flex-col gap-2" key={index}>
+              <h2 className="text-2xl font-bold">{section?.heading}</h2>
+
+              {section?.content && (
+                <p className="text-sm font-normal leading-5">
+                  <HtmlRenderer htmlContent={section?.content} />
+                </p>
+              )}
+              {section?.description && (
+                <p className="text-sm font-normal leading-5">
+                  {section?.description}
+                </p>
+              )}
+              {section?.steps && (
+                <ol className="flex flex-col gap-2.5">
+                  {section?.steps?.map((step) => (
+                    <li
+                      key={step?.step}
+                      className="font-normal leading-5 text-sm flex flex-col gap-0.5"
+                    >
+                      <p>
+                        <strong>Step {step?.step}:</strong> {step?.description}
+                      </p>
+                      <CodeBlock
+                        language="command"
+                        highlightLines={[9, 13, 14, 18]}
+                        code={step?.command}
+                      />
+                    </li>
+                  ))}
+                </ol>
+              )}
+
+              {section?.code && (
+                <CodeBlock
+                  language={section?.code?.language}
+                  highlightLines={[9, 13, 14, 18]}
+                  code={section?.code?.content}
+                />
+              )}
+
+              {section?.example && (
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <h3 className="font-semibold text-lg pb-0.5">
+                      {section?.example?.component?.filename}
+                    </h3>
+                    <p className="text-sm font-normal leading-5">
+                      <HtmlRenderer htmlContent={section?.content} />
+                    </p>
+                    {section?.example?.component?.code && (
+                      <CodeBlock
+                        language={section?.example?.component?.language}
+                        highlightLines={[9, 13, 14, 18]}
+                        filename={section?.example?.component?.filename}
+                        code={section?.example?.component?.code}
+                      />
+                    )}
+                  </div>
+                </div>
+              )}
+            </section>
+          ))}
         </div>
       </div>
-      <ReactMarkdown className="pt-4 text-xs font-normal leading-5 text-left sm:pt-6 sm:leading-8 sm:text-sm">
-        {props?.content}
-      </ReactMarkdown>
       <div
         className={`flex items-center gap-4 mt-10 ml-auto ${
           props.published ? "flex-row-reverse" : "justify-end"
@@ -120,6 +177,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     where: {
       id: String(params?.id),
       inPortfolio: false,
+      showOnHomePage: true,
     },
     include: {
       author: {

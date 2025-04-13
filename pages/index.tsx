@@ -5,7 +5,7 @@ import Post, { PostProps } from "../components/Post";
 import prisma from "../lib/prisma";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/router";
-
+import Image from "next/image";
 type Props = {
   feed: PostProps[];
 };
@@ -24,7 +24,7 @@ const Blog: FC<Props> = (props) => {
         </h1>
         <main>
           {props.feed.slice(0, 1).map((post) => (
-            <div key={post?.id} className="post">
+            <div key={post?.id} className="cursor-pointer post">
               <div
                 className="flex flex-col items-center sm:text-center"
                 onClick={() => router.push("/p/[id]", `/p/${post?.id}`)}
@@ -35,30 +35,43 @@ const Blog: FC<Props> = (props) => {
                 <ReactMarkdown className="max-w-2xl pb-12 text-base font-normal md:text-xl">
                   {post?.summary}
                 </ReactMarkdown>
-                <img
-                  className="object-cover min-w-full duration-200 ease-in hover:scale-95 aspect-video rounded-xl"
-                  src={post?.url}
-                  alt={post?.title}
-                />
-
-                <div className="flex items-center py-2 gap-2.5">
-                  <img
-                    className="object-cover rounded-full size-6"
-                    src={
-                      post?.image ||
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0V_aHE12tdUfBMu2ZvPg-eCfzXDh8B8Zx3xzI2NukeQ&s"
-                    }
-                    alt={post?.author ? post?.author.name : "Unknown author"}
+                <div className="relative w-full h-full rounded-xl aspect-video">
+                  <Image
+                    className="object-cover min-w-full duration-200 ease-in hover:scale-95 aspect-video rounded-xl"
+                    src={post?.url}
+                    alt={post?.title}
+                    layout="fill"
+                    objectFit="cover"
+                    priority
+                                                  quality={100}
                   />
+                </div>
+                <div className="flex items-center py-2 gap-2.5">
+                  <div className="relative w-6 h-6 rounded-full">
+                    {" "}
+                    <Image
+                      className="object-cover rounded-full size-6"
+                      src={
+                        post?.image ||
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0V_aHE12tdUfBMu2ZvPg-eCfzXDh8B8Zx3xzI2NukeQ&s"
+                      }
+                      layout="fill"
+                      objectFit="cover"
+                      quality={100}
+                      priority
+                      alt={post?.author ? post?.author.name : "Unknown author"}
+                    />
+                  </div>
                   <small className="py-2">
                     By {post?.author ? post?.author.name : "Unknown author"}
                   </small>
                 </div>
               </div>
               <ReactMarkdown className="pt-6 text-xs font-normal leading-5 text-left sm:leading-6 lg:leading-8 sm:text-sm md:px-20">
-                {post.content.length > 230
-                  ? post.content.slice(0, 230) + "... &nbsp;&nbsp; Read more"
-                  : post.content}
+                {JSON.parse(post?.content)?.summary.length > 230
+                  ? JSON.parse(post?.content)?.summary.slice(0, 230) +
+                    "... &nbsp;&nbsp; Read more"
+                  : JSON.parse(post?.content)?.summary}
               </ReactMarkdown>
             </div>
           ))}
@@ -102,7 +115,7 @@ export const getStaticProps: GetStaticProps = async () => {
   });
   try {
     const feed = await prisma.post?.findMany({
-      where: { published: true, inPortfolio: false },
+      where: { published: true, inPortfolio: false, showOnHomePage: true },
       include: {
         author: {
           select: { name: true },

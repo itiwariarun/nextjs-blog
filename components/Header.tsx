@@ -15,7 +15,7 @@ const Header: FC = () => {
     setSession(data);
   }, [data]);
   return (
-    <nav className="flex items-center justify-between pt-12">
+    <nav className="flex max-w-4xl w-full mx-auto items-center justify-between pt-12">
       <div className="flex font-medium text-lg md:text-xl text-gray-900 dark:text-gray-300 gap-x-2.5 md:gap-x-5 items-center">
         <Link href="/">
           <a className="bold" data-active={isActive("/")}>
