@@ -5,11 +5,12 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { GithubIcon } from "@components/Icons";
+import { useRouter } from "next/router";
 export default function SignIn({ providers }) {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const SignInFunc = () => {
-    signIn(provider.id, { callbackUrl: "/drafts" }).then((res) => {
+  const SignInFunc = (id) => {
+    signIn(id, { callbackUrl: "/drafts" }).then((res) => {
       if (res.error) {
         console.error("Error signing in:", res.error);
       } else {
@@ -43,7 +44,7 @@ export default function SignIn({ providers }) {
               (provider: { name: string; id: string }) => (
                 <li key={provider.name}>
                   <button
-                    onClick={SignInFunc}
+                    onClick={() => SignInFunc(provider.id)}
                     className="flex items-center w-full p-3 text-base font-bold text-gray-900 rounded-lg dark:text-gray-300 bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500"
                   >
                     <GithubIcon />
