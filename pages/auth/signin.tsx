@@ -12,9 +12,11 @@ export default function SignIn({ providers }) {
   const SignInFunc = (id) => {
     signIn(id, { callbackUrl: "/drafts" });
   };
+
+  console.log({ session });
   return (
     <Layout>
-      {!!session?.accessToken ? (
+      {!!session ? (
         <div className="flex flex-col min-h-[50vh] gap-5 text-xl font-medium text-gray-700 dark:text-gray-400">
           <p>{session.user.name}</p>
           <Link href="/create">
