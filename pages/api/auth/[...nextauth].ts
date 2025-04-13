@@ -41,7 +41,7 @@ const options = {
     async redirect({ url, baseUrl }) {
       // Ensure url and baseUrl are defined
       if (!url || !baseUrl) {
-        return baseUrl || process.env.NEXTAUTH_URL || "/drafts";
+        return baseUrl || process.env.NEXTAUTH_URL || "/";
       }
 
       // Use new URL to properly handle URL checking

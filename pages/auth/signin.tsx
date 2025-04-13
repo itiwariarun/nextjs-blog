@@ -33,7 +33,9 @@ export default function SignIn({ providers }) {
               (provider: { name: string; id: string }) => (
                 <li key={provider.name}>
                   <button
-                    onClick={() => signIn(provider.id)}
+                    onClick={() =>
+                      signIn(provider.id, { callbackUrl: "/drafts" })
+                    }
                     className="flex items-center w-full p-3 text-base font-bold text-gray-900 rounded-lg dark:text-gray-300 bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500"
                   >
                     <GithubIcon />
