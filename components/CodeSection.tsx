@@ -3,8 +3,25 @@ import React, { FC } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { IconCheck, IconCopy } from "@tabler/icons-react";
-import { CodeBlockProps } from "@/types/Stars";
-
+export type CodeBlockProps = {
+  language: string;
+  filename?: string;
+  highlightLines?: number[];
+} & (
+  | {
+      code: string;
+      tabs?: never;
+    }
+  | {
+      code?: never;
+      tabs: Array<{
+        name: string;
+        code: string;
+        language?: string;
+        highlightLines?: number[];
+      }>;
+    }
+);
 export const CodeBlock: FC<CodeBlockProps> = ({
   language,
   filename,

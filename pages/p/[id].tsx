@@ -9,6 +9,20 @@ import { useRouter } from "next/router";
 import { CodeBlock } from "./../../components/CodeSection";
 import HtmlRenderer from "./../../components/HtmlRenderer";
 import Image from "next/image";
+export interface SectionTypes {
+  heading: string;
+  content: string;
+  description: string;
+  steps: {
+    description: string;
+    command: string;
+    step: number;
+  }[];
+  code: { language: string; content: string };
+  example: {
+    component: { filename: string; code: string; language: string };
+  };
+}
 const Post: React.FC<PostProps> = (props) => {
   const router = useRouter();
   const { data: session, status } = useSession();
