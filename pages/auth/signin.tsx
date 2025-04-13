@@ -14,12 +14,10 @@ export default function SignIn({ providers }) {
         <div className="flex flex-col min-h-[50vh] gap-5 text-xl font-medium text-gray-700 dark:text-gray-400">
           <p>{session.user.name}</p>
           <Link href="/create">
-            <button className="max-w-fit">
-              <a>New post</a>
-            </button>
+            <button className="max-w-fit">New post</button>
           </Link>
           <button className="max-w-fit" onClick={() => signOut()}>
-            <a>Log out</a>
+            Log out
           </button>
         </div>
       ) : (

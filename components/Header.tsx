@@ -15,16 +15,14 @@ const Header: FC = () => {
     setSession(data);
   }, [data]);
   return (
-    <nav className="flex max-w-4xl w-full mx-auto items-center justify-between pt-12">
+    <nav className="flex items-center justify-between w-full max-w-4xl pt-12 mx-auto">
       <div className="flex font-medium text-lg md:text-xl text-gray-900 dark:text-gray-300 gap-x-2.5 md:gap-x-5 items-center">
-        <Link href="/">
-          <a className="bold" data-active={isActive("/")}>
-            Feed
-          </a>
+        <Link className="bold" data-active={isActive("/")} href="/">
+          Feed
         </Link>
         {session && (
-          <Link href="/drafts">
-            <a data-active={isActive("/drafts")}>My drafts</a>
+          <Link data-active={isActive("/drafts")} href="/drafts">
+            My drafts
           </Link>
         )}
       </div>
@@ -32,19 +30,15 @@ const Header: FC = () => {
         <div className="flex gap-x-2.5 md:gap-x-5 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-400 items-center">
           <p>{session?.user?.name}</p>
           <Link href="/create">
-            <button>
-              <a>New post</a>
-            </button>
+            <button>New post</button>
           </Link>
-          <button onClick={() => signOut()}>
-            <a>Log out</a>
-          </button>
+          <button onClick={() => signOut()}>Log out</button>
           <ThemeSwitcher />
         </div>
       ) : (
         <div className="flex right items-center whitespace-nowrap gap-x-2.5">
-          <Link href="/auth/signin">
-            <a data-active={isActive("/signup")}>Log in</a>
+          <Link data-active={isActive("/signup")} href="/auth/signin">
+            Log in
           </Link>
           <ThemeSwitcher />
         </div>

@@ -8,16 +8,15 @@ export default function Footer() {
     router.pathname === pathname;
 
   return (
-    <div className="max-w-4xl w-full mx-auto">
+    <div className="w-full max-w-4xl mx-auto">
       <div className="flex items-center justify-between gap-5 pt-12">
         <div className="flex flex-col gap-y-5">
-          <Link href="/">
-            <a
-              className="text-lg font-medium text-gray-900 dark:text-gray-300 md:text-xl"
-              data-active={isActive("/")}
-            >
-              Feed
-            </a>
+          <Link
+            className="text-lg font-medium text-gray-900 dark:text-gray-300 md:text-xl"
+            data-active={isActive("/")}
+            href="/"
+          >
+            Feed
           </Link>
           <p className="text-base font-normal text-gray-600 dark:text-gray-300 md:text-lg">
             Developed By <span className="underline">itiwariarun</span>

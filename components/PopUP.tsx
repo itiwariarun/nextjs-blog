@@ -50,6 +50,7 @@ export const ModalTrigger = ({
   const { setOpen } = useModal();
   return (
     <button
+      type="button"
       className={cn(
         "px-4 py-2 rounded-md text-black dark:text-white text-center relative overflow-hidden",
         className
@@ -195,6 +196,7 @@ const CloseIcon = () => {
   const { setOpen } = useModal();
   return (
     <button
+      type="button"
       onClick={() => setOpen(false)}
       className="absolute top-4 right-4 group"
     >
